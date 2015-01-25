@@ -7,6 +7,6 @@ end
 CircleCi::Project.build_branch(
   ENV['GITHUB_USERNAME'],
   ENV['GITHUB_REPONAME'],
-  ENV['BRANCH'] || 'master',
+  ENV['BRANCH'],
   {BUNDLE_UPDATE: true},
 )

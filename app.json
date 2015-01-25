@@ -12,8 +12,7 @@
             "description": "Your GitHub repository name"
         },
         "BRANCH": {
-            "description": "default: master",
-            "required": false
+            "value": "master"
         },
         "CIRCLECI_TOKEN": {
             "description": "See https://circleci.com/docs/api#projects"
