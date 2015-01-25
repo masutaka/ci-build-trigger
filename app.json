@@ -15,7 +15,7 @@
             "value": "master"
         },
         "CIRCLECI_TOKEN": {
-            "description": "See https://circleci.com/docs/api#projects"
+            "description": "CircleCI: Project Setting -> API Permissions"
         },
         "EXEC_DAYS": {
             "description": "ex. 'Sun or Mon,Wed,Fri' if unset, executes every day.",
