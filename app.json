@@ -16,6 +16,10 @@
         },
         "CIRCLECI_TOKEN": {
             "description": "See https://circleci.com/docs/api#projects"
+        },
+        "EXEC_DAYS": {
+            "description": "ex. 'Sun or Mon,Wed,Fri' if unset, executes every day.",
+            "required": false
         }
     },
     "addons": ["scheduler:standard"]
