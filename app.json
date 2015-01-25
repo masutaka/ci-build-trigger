@@ -1,0 +1,23 @@
+{
+    "name": "bundle update as CI",
+    "keywords": [
+        "CircleCI",
+        "bundler"
+    ],
+    "env": {
+        "GITHUB_USERNAME": {
+            "description": "Your GitHub account"
+        },
+        "GITHUB_REPONAME": {
+            "description": "Your GitHub repository name"
+        },
+        "BRANCH": {
+            "description": "default: master",
+            "required": false
+        },
+        "CIRCLECI_TOKEN": {
+            "description": "See https://circleci.com/docs/api#projects"
+        }
+    },
+    "addons": ["scheduler:standard"]
+}
