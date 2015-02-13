@@ -6,7 +6,7 @@
     ],
     "env": {
         "GITHUB_USERNAME": {
-            "description": "Your GitHub account"
+            "description": "Your GitHub account or organization"
         },
         "GITHUB_REPONAME": {
             "description": "Your GitHub repository name"
