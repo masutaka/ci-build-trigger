@@ -7,7 +7,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    mime-types (2.5)
+    mime-types (2.6.1)
     netrc (0.10.3)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
