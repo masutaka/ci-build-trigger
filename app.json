@@ -17,6 +17,11 @@
         "CIRCLECI_TOKEN": {
             "description": "CircleCI: Project Setting -> API Permissions"
         },
+        "TZ": {
+            "description": "Set your timezone, if you use EXEC_DAYS.",
+            "value": "UTC",
+            "required": false
+        },
         "EXEC_DAYS": {
             "description": "ex. 'Sun or Mon,Wed,Fri' if unset, executes every day.",
             "required": false
