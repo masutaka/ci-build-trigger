@@ -3,7 +3,7 @@ GEM
   specs:
     circleci (0.2.0)
       rest-client (~> 1.8)
-    domain_name (0.5.25)
+    domain_name (0.5.20160128)
       unf (>= 0.0.5, < 1.0.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
