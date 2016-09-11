@@ -13,5 +13,6 @@ CircleCi::Project.build_branch(
   ENV['GITHUB_USERNAME'],
   ENV['GITHUB_REPONAME'],
   ENV['BRANCH'],
-  {BUNDLE_UPDATE: true},
+  {},
+  build_parameters: { BUNDLE_UPDATE: true }
 )
