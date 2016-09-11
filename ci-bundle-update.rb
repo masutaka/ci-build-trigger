@@ -21,9 +21,9 @@ class CiBundleUpdate
     )
 
     if response.success?
-      puts "This build was succeeded"
+      puts "This build was accepted"
     else
-      puts "This build was failed for #{response.body}"
+      puts "This build was not accepted for #{response.body}"
     end
   end
 
