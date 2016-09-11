@@ -10,12 +10,21 @@ class CiBundleUpdate
   end
 
   def build(username, reponame, branch)
-    return if skip?
+    if skip?
+      puts "This build was skipped for $EXEC_DAYS (#{exec_days})"
+      return
+    end
 
     response = CircleCi::Project.build_branch(
       username, reponame, branch, {},
       build_parameters: { BUNDLE_UPDATE: true }
     )
+
+    if response.success?
+      puts "This build was succeeded"
+    else
+      puts "This build was failed for #{response.body}"
+    end
   end
 
   private
