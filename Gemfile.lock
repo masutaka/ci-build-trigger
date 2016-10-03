@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    circleci (1.0.1)
+    circleci (1.0.3)
 
 PLATFORMS
   ruby
