@@ -37,6 +37,14 @@ class CiBundleUpdate
         ! exec_days.split(',').include?(Time.now.strftime('%a'))
     end
   end
+
+  class Wercker
+    def initialize
+    end
+
+    def build
+    end
+  end
 end
 
 if $0 == __FILE__
