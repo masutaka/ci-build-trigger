@@ -39,7 +39,9 @@ class CiBundleUpdate
   end
 
   class Wercker
-    def initialize
+    def initialize(wercker_token, exec_days)
+      @wercker_token = wercker_token
+      @exec_days = exec_days
     end
 
     def build
