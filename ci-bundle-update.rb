@@ -21,13 +21,13 @@ class CiBundleUpdate
     end
   end
 
-  class CircleCi
+  class CircleCi < Base
     def initialize(circleci_token, exec_days)
+      super
+
       CircleCi.configure do |config|
         config.token = circleci_token
       end
-
-      @exec_days = exec_days
     end
 
     def build(username, reponame, branch)
@@ -46,15 +46,6 @@ class CiBundleUpdate
       else
         puts "This build was not accepted for #{response.body}"
       end
-    end
-
-    private
-
-    attr_reader :exec_days
-
-    def skip?
-      exec_days &&
-        ! exec_days.split(',').include?(Time.now.strftime('%a'))
     end
   end
 
