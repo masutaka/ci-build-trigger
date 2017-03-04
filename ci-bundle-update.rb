@@ -88,6 +88,16 @@ class CiBundleUpdate
 end
 
 if $0 == __FILE__
-  ci_bundle_update = CiBundleUpdate::CircleCi.new(ENV['CIRCLECI_TOKEN'], ENV['EXEC_DAYS'])
+  require 'optparse'
+  options = ARGV.getopts(nil, 'ci:circle_ci')
+
+  case options['ci']
+  when 'circle_ci'
+    ci_bundle_update = CiBundleUpdate::CircleCi.new(ENV['CIRCLECI_TOKEN'], ENV['EXEC_DAYS'])
+
+  when 'wercker'
+    ci_bundle_update = CiBundleUpdate::Wercker.new(ENV['WERCKER_TOKEN'], ENV['EXEC_DAYS'])
+  end
+
   ci_bundle_update.build(ENV['GITHUB_USERNAME'], ENV['GITHUB_REPONAME'], ENV['BRANCH'])
 end
