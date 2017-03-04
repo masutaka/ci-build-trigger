@@ -2,6 +2,25 @@ require 'circleci'
 require 'httparty'
 
 class CiBundleUpdate
+  class Base
+    def initialize(token, exec_days)
+      @exec_days = exec_days
+    end
+
+    def build
+      raise NotImplementedError
+    end
+
+    private
+
+    attr_reader :exec_days
+
+    def skip?
+      exec_days &&
+        ! exec_days.split(',').include?(Time.now.strftime('%a'))
+    end
+  end
+
   class CircleCi
     def initialize(circleci_token, exec_days)
       CircleCi.configure do |config|
