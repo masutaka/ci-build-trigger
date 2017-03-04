@@ -1,4 +1,5 @@
 require 'circleci'
+require 'httparty'
 
 class CiBundleUpdate
   class CircleCi
@@ -39,12 +40,38 @@ class CiBundleUpdate
   end
 
   class Wercker
+    include HTTParty
+
+    base_uri 'https://app.wercker.com/api/v3'
+
     def initialize(wercker_token, exec_days)
       @wercker_token = wercker_token
+      @headers = {
+        Authorization: "Bearer #{wercker_token}",
+        'Content-type': 'application/json',
+      }
       @exec_days = exec_days
     end
 
-    def build
+    # See: http://devcenter.wercker.com/docs/api/endpoints/builds#trigger-a-build
+    #
+    def build(username, reponame, branch)
+      if skip?
+        puts "This build was skipped for $EXEC_DAYS (#{exec_days})"
+        return
+      end
+
+      response = self.class.get("/applications/#{username}/#{reponame}", headers: @headers).parsed_response
+
+      body = {
+        applicationId: response['id'],
+        branch: branch,
+        envVars: [
+          { key: 'BUNDLE_UPDATE', value: 'true' }
+        ],
+      }
+
+      self.class.post('/builds', body: body.to_json, headers: @headers)
     end
   end
 end
