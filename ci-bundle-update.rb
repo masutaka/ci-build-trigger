@@ -49,18 +49,19 @@ class CiBundleUpdate
     end
   end
 
-  class Wercker
+  class Wercker < Base
     include HTTParty
 
     base_uri 'https://app.wercker.com/api/v3'
 
     def initialize(wercker_token, exec_days)
+      super
+
       @wercker_token = wercker_token
       @headers = {
         Authorization: "Bearer #{wercker_token}",
         'Content-type': 'application/json',
       }
-      @exec_days = exec_days
     end
 
     # See: http://devcenter.wercker.com/docs/api/endpoints/builds#trigger-a-build
