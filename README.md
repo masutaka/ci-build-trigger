@@ -6,7 +6,9 @@ Build your CircleCI project with build_parameters "{BUNDLE_UPDATE: true}"
 
 1. Click [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 1. Open Heroku scheduler `ex. $ heroku addons:open scheduler --app <App Name>`
-1. Add `$ bundle exec ruby ci-bundle-update.rb` to Heroku scheduler
+1. Add command to Heroku scheduler
+   * **CircleCI**: `$ bundle exec ruby ci-bundle-update.rb`
+   * **Wercker**: `$ bundle exec ruby ci-bundle-update.rb --ci wercker`
 
 ## More
 
