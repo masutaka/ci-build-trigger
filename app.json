@@ -17,6 +17,9 @@
         "CIRCLECI_TOKEN": {
             "description": "CircleCI: Project Setting -> API Permissions"
         },
+        "WERCKER_TOKEN": {
+            "description": "Wercker: Settings -> Personal tokens"
+        },
         "TZ": {
             "description": "Set your timezone, if you use EXEC_DAYS.",
             "value": "UTC",
