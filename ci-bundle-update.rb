@@ -64,25 +64,45 @@ class CiBundleUpdate
       }
     end
 
-    # See: http://devcenter.wercker.com/docs/api/endpoints/builds#trigger-a-build
-    #
     def build(username, reponame, branch)
       if skip?
         puts "This build was skipped for $EXEC_DAYS (#{exec_days})"
         return
       end
 
-      response = self.class.get("/applications/#{username}/#{reponame}", headers: @headers).parsed_response
+      application = get_application(username, reponame)
+      build_pipeline = get_build_pipeline(application['id'], branch)
+      raise 'build pipeline not found.' unless build_pipeline
+      run_build(build_pipeline['id'], branch)
+    end
 
+    private
+
+    def get_application(username, reponame)
+      self.class.get("/applications/#{username}/#{reponame}", headers: @headers).parsed_response
+    end
+
+    def get_build_pipeline(application_id, branch)
       body = {
-        applicationId: response['id'],
+        applicationId: application_id,
+        branch: branch,
+      }
+
+      runs = self.class.get('/runs', body: body.to_json, headers: @headers).parsed_response
+      run = runs.find { |run| run['pipeline']['name'] == 'build' }
+      run['pipeline'] if run
+    end
+
+    def run_build(pipeline_id, branch)
+      body = {
+        pipelineId: pipeline_id,
         branch: branch,
         envVars: [
           { key: 'BUNDLE_UPDATE', value: 'true' }
         ],
       }
 
-      self.class.post('/builds', body: body.to_json, headers: @headers)
+      self.class.post('/runs', body: body.to_json, headers: @headers)
     end
   end
 end
