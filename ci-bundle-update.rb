@@ -83,12 +83,12 @@ class CiBundleUpdate
     end
 
     def get_build_pipeline(application_id, branch)
-      body = {
+      query = {
         applicationId: application_id,
         branch: branch,
       }
 
-      runs = self.class.get('/runs', body: body.to_json, headers: @headers).parsed_response
+      runs = self.class.get('/runs', query: query, headers: @headers).parsed_response
       run = runs.find { |run| run['pipeline']['name'] == 'build' }
       run['pipeline'] if run
     end
