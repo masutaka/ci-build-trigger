@@ -14,7 +14,7 @@ In Japanese
 
 http://masutaka.net/chalow/2015-07-28-1.html
 
-# Recommend
+## Recommend
 
 AWS Lambda version is now available!
 
