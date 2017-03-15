@@ -13,3 +13,9 @@ Build your CircleCI project with build_parameters "{BUNDLE_UPDATE: true}"
 In Japanese
 
 http://masutaka.net/chalow/2015-07-28-1.html
+
+# Recommend
+
+AWS Lambda version is now available!
+
+https://github.com/tsub/circleci-build-trigger
