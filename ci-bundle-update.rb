@@ -25,7 +25,7 @@ class CiBundleUpdate
     def initialize(circleci_token, exec_days)
       super
 
-      CircleCi.configure do |config|
+      ::CircleCi.configure do |config|
         config.token = circleci_token
       end
     end
@@ -36,7 +36,7 @@ class CiBundleUpdate
         return
       end
 
-      response = CircleCi::Project.build_branch(
+      response = ::CircleCi::Project.build_branch(
         username, reponame, branch, {},
         build_parameters: { BUNDLE_UPDATE: true }
       )
