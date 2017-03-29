@@ -1,6 +1,8 @@
 # ci-bundle-update
 
-Build your CircleCI project with build_parameters "{BUNDLE_UPDATE: true}"
+Build your CI project with build_parameters "{BUNDLE_UPDATE: true}"
+
+It supports `CircleCI` and `Wercker`.
 
 ## Setup
 
