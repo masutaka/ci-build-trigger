@@ -16,7 +16,7 @@ class CiBundleUpdate
 
     attr_reader :exec_days
 
-    def post_initialize(token, exec_days)
+    def post_initialize(_token, _exec_days)
       nil
     end
 
@@ -47,9 +47,9 @@ class CiBundleUpdate
 
     private
 
-    def post_initialize(circleci_token, exec_days)
+    def post_initialize(token, _exec_days)
       ::CircleCi.configure do |config|
-        config.token = circleci_token
+        config.token = token
       end
     end
   end
@@ -73,10 +73,9 @@ class CiBundleUpdate
 
     private
 
-    def post_initialize(wercker_token, exec_days)
-      @wercker_token = wercker_token
+    def post_initialize(token, _exec_days)
       @headers = {
-        Authorization: "Bearer #{wercker_token}",
+        Authorization: "Bearer #{token}",
         'Content-type': 'application/json',
       }
     end
