@@ -2,12 +2,19 @@ GEM
   remote: https://rubygems.org/
   specs:
     circleci (1.0.3)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
+    multi_xml (0.6.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   circleci
+  httparty
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.10.5

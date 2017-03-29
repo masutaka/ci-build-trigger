@@ -15,7 +15,12 @@
             "value": "master"
         },
         "CIRCLECI_TOKEN": {
-            "description": "CircleCI: Project Setting -> API Permissions"
+            "description": "CircleCI: Project Setting -> API Permissions",
+            "required": false
+        },
+        "WERCKER_TOKEN": {
+            "description": "Wercker: Settings -> Personal tokens",
+            "required": false
         },
         "TZ": {
             "description": "Set your timezone, if you use EXEC_DAYS.",
