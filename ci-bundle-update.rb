@@ -1,7 +1,7 @@
 require 'circleci'
 require 'httparty'
 
-class CiBundleUpdate
+module CiBundleUpdate
   class Base
     def initialize(token, exec_days)
       @exec_days = exec_days
