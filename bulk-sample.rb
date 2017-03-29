@@ -10,6 +10,6 @@ ENV['TRIGGERS'].split(',').each do |trigger|
 
    puts "GitHub repository is #{github_username}/#{github_reponame}"
 
-   ci_bundle_update = CiBundleUpdate.new(circleci_token, exec_days)
+   ci_bundle_update = CiBundleUpdate::CircleCi.new(circleci_token, exec_days)
    ci_bundle_update.build(github_username, github_reponame, branch)
 end
