@@ -5,6 +5,7 @@ class CiBundleUpdate
   class Base
     def initialize(token, exec_days)
       @exec_days = exec_days
+      post_initialize(token, exec_days)
     end
 
     def build
@@ -15,6 +16,10 @@ class CiBundleUpdate
 
     attr_reader :exec_days
 
+    def post_initialize(token, exec_days)
+      nil
+    end
+
     def skip?
       exec_days &&
         ! exec_days.split(',').include?(Time.now.strftime('%a'))
@@ -22,14 +27,6 @@ class CiBundleUpdate
   end
 
   class CircleCi < Base
-    def initialize(circleci_token, exec_days)
-      super
-
-      ::CircleCi.configure do |config|
-        config.token = circleci_token
-      end
-    end
-
     def build(username, reponame, branch)
       if skip?
         puts "This build was skipped for $EXEC_DAYS (#{exec_days})"
@@ -47,22 +44,20 @@ class CiBundleUpdate
         puts "This build was not accepted for #{response.body}"
       end
     end
+
+    private
+
+    def post_initialize(circleci_token, exec_days)
+      ::CircleCi.configure do |config|
+        config.token = circleci_token
+      end
+    end
   end
 
   class Wercker < Base
     include HTTParty
 
     base_uri 'https://app.wercker.com/api/v3'
-
-    def initialize(wercker_token, exec_days)
-      super
-
-      @wercker_token = wercker_token
-      @headers = {
-        Authorization: "Bearer #{wercker_token}",
-        'Content-type': 'application/json',
-      }
-    end
 
     def build(username, reponame, branch)
       if skip?
@@ -77,6 +72,14 @@ class CiBundleUpdate
     end
 
     private
+
+    def post_initialize(wercker_token, exec_days)
+      @wercker_token = wercker_token
+      @headers = {
+        Authorization: "Bearer #{wercker_token}",
+        'Content-type': 'application/json',
+      }
+    end
 
     def get_application(username, reponame)
       self.class.get("/applications/#{username}/#{reponame}", headers: @headers).parsed_response
