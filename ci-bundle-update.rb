@@ -3,8 +3,9 @@ require 'httparty'
 
 module CiBundleUpdate
   class Base
-    def initialize(token, exec_days)
+    def initialize(token, exec_days, raw_extra_build_parameters)
       @exec_days = exec_days
+      @raw_extra_build_parameters = raw_extra_build_parameters
       post_initialize(token, exec_days)
     end
 
@@ -14,10 +15,14 @@ module CiBundleUpdate
 
     private
 
-    attr_reader :exec_days
+    attr_reader :exec_days, :raw_extra_build_parameters
 
     def post_initialize(_token, _exec_days)
       nil
+    end
+
+    def extra_build_parameters
+      raise NotImplementedError
     end
 
     def skip?
@@ -35,7 +40,7 @@ module CiBundleUpdate
 
       response = ::CircleCi::Project.build_branch(
         username, reponame, branch, {},
-        build_parameters: { BUNDLE_UPDATE: true }
+        build_parameters: { 'BUNDLE_UPDATE' => true }.merge(extra_build_parameters)
       )
 
       if response.success?
@@ -51,6 +56,17 @@ module CiBundleUpdate
       ::CircleCi.configure do |config|
         config.token = token
       end
+    end
+
+    def extra_build_parameters
+      @extra_build_parameters ||=
+        begin
+          ary = (raw_extra_build_parameters || "")
+                  .split(',')
+                  .map{|e| e.split('=')}
+                  .flatten
+          Hash[*ary]
+        end
     end
   end
 
@@ -101,10 +117,19 @@ module CiBundleUpdate
         branch: branch,
         envVars: [
           { key: 'BUNDLE_UPDATE', value: 'true' }
+          *extra_build_parameters
         ],
       }
 
       self.class.post('/runs', body: body.to_json, headers: @headers)
+    end
+
+    def extra_build_parameters
+      @extra_build_parameters ||=
+        (raw_extra_build_parameters || "")
+          .split(',')
+          .map{|e| e.split('=')}
+          .map{|k,v| {key: k, value: v}}
     end
   end
 end
@@ -115,10 +140,18 @@ if $0 == __FILE__
 
   case options['ci']
   when 'circle_ci'
-    ci_bundle_update = CiBundleUpdate::CircleCi.new(ENV['CIRCLECI_TOKEN'], ENV['EXEC_DAYS'])
+    ci_bundle_update = CiBundleUpdate::CircleCi.new(
+      ENV['CIRCLECI_TOKEN'],
+      ENV['EXEC_DAYS'],
+      ENV['EXTRA_BUILD_PARAMETERS']
+    )
 
   when 'wercker'
-    ci_bundle_update = CiBundleUpdate::Wercker.new(ENV['WERCKER_TOKEN'], ENV['EXEC_DAYS'])
+    ci_bundle_update = CiBundleUpdate::Wercker.new(
+      ENV['WERCKER_TOKEN'],
+      ENV['EXEC_DAYS'],
+      ENV['EXTRA_BUILD_PARAMETERS']
+    )
   end
 
   ci_bundle_update.build(ENV['GITHUB_USERNAME'], ENV['GITHUB_REPONAME'], ENV['BRANCH'])
