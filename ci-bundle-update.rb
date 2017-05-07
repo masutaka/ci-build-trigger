@@ -116,7 +116,7 @@ module CiBundleUpdate
         pipelineId: pipeline_id,
         branch: branch,
         envVars: [
-          { key: 'BUNDLE_UPDATE', value: 'true' }
+          { key: 'BUNDLE_UPDATE', value: 'true' },
           *extra_build_parameters
         ],
       }
