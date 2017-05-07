@@ -22,6 +22,10 @@
             "description": "Wercker: Settings -> Personal tokens",
             "required": false
         },
+        "EXTRA_BUILD_PARAMETERS": {
+            "description": "format: <NAME>=<VALUE>,<NAME>=<VALUE>,...",
+            "required": false
+        },
         "TZ": {
             "description": "Set your timezone, if you use EXEC_DAYS.",
             "value": "UTC",
