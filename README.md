@@ -1,4 +1,4 @@
-# ci-bundle-update
+# ci-build-trigger
 
 Build your CI project with build_parameters "{BUNDLE_UPDATE: true}" and more.
 
