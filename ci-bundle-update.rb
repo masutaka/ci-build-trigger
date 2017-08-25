@@ -38,8 +38,9 @@ module CiBundleUpdate
         return
       end
 
-      response = ::CircleCi::Project.build_branch(
-        username, reponame, branch, {},
+      response = ::CircleCi::Project.new(username, reponame).build_branch(
+        branch,
+        {},
         build_parameters: { 'BUNDLE_UPDATE' => true }.merge(extra_build_parameters)
       )
 
