@@ -18,8 +18,8 @@ In Japanese
 
 http://masutaka.net/chalow/2015-07-28-1.html
 
-## Recommend
+## Recommend for CircleCI users
 
-AWS Lambda version is now available!
+You can use [Scheduling a Workflow](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow) of CircleCI 2.0. It provides scheduled build like crontab.
 
-https://github.com/tsub/circleci-build-trigger
+:bulb: So I recommend to use Scheduling a Workflow, not ci-build-trigger.
